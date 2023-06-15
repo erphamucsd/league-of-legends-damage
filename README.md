@@ -26,7 +26,9 @@ columns:
 | earnedgold | The amount of gold that a player earned without including the passive income. |
 
 In order to tackle this problem, I am building a regression model with the value
-"damagetochampions" as the response variable. The method by which I am choosing
+"damagetochampions" as the response variable. I chose "damagetochampions" 
+because I felt that it would yield interest results, as it is not a strong 
+function of any of the features in the data. The method by which I am choosing
 to evaluate this model is the root-mean-squared-error (RMSE), which I chose 
 because it was easier to calculate for different groups as opposed to R-Squared
 which is a little bit more involved mathematically. The reason why I chose RMSE
@@ -213,7 +215,8 @@ based on groups, I set up a permutation test:
 
 #### damagetochampions
 <iframe src="assets/permutated_positions.html" width=800 height=600 frameBorder=0></iframe>
-Figure 3: The distribution of permuted chi-squared values.
+Figure 3: The distribution of permuted chi-squared values. Note that for 
+viewability reasons, the log of the observed test statistic is taken.
 
 The p-value obtained for this permutation test was 0.00.
 
