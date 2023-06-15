@@ -48,7 +48,7 @@ contribute to the damage-doing abilities of a champion, and then I tested a
 combination of features using a basic linear regression model to compare the 
 impact of each feature using cross-validation. In the end, I selected these 
 features for my baseline model:
--   earnedgold: This is one of the biggest indicator because gold allows players to buy items, and items enhances the amount of damage that a champion will do. It is a quantitative column and no encoding was necessary.
+-   earnedgold: This is one of the biggest indicators because gold allows players to buy items, and items enhance the amount of damage that a champion will do. It is a quantitative column and no encoding was necessary.
 -   total cs: This is another big indicator because cs is a very important source of income in pro play league of legends. Because of the scarcity of kills, the most reliable way to generate income is to gain more cs, and more income means more gold to buy items which leads to more damage done. It is a quantitative column and no encoding was necessary.
 -   kills: I also thought this was an important feature because a player that does a lot of damage should in theory have a lot of kills to go with it, so there's probably a positive correlation between the two values. It is a quantitative column and no encoding was necessary.
 -   position: The final column that I added was position because the gold generating abilities of different positions vary a lot. Roles such as jng and sup are not meant to earn a lot of gold and typically, they do not support their teams primarily by doing damage. It is a nominal column, and it was one-hot encoded.
@@ -90,7 +90,7 @@ the current model is pretty difficult to make improvements on.
 ### Additional & Engineered Features
 After carefully reviewing my baseline model, I decided to update it with some
 more features:
--   Standardized gamelength: One of the ways that I made major updates to my final model was the inclusion of a new feature all together; standardized gamelength. I definitely think this feature helped me improve my model because the longer a game runs, the more opportunites a player has to deal damage.
+-   Standardized gamelength: One of the ways that I made major updates to my final model was the inclusion of a new feature all together; standardized gamelength. I definitely think this feature helped me improve my model because the longer a game runs, the more opportunities a player has to deal damage.
 -   Standardized kills: By standardizing kills, I lessened the effect that outliers had on the model. I think this was probably the least impactful to the model simply because the amount of kills that a player has doesn't deviate from the mean by much. Kills rarely happen in proplay games so the distribution of kills is very tightly packed.
 -   Standardized by Group total cs: Standardizing total cs by group was another really important change to the model. The total cs varies dramatically between groups because jng and sup typically have less cs, so I thought that it would be important to scale it by each corresponding group to account for the differences in cs among groups.
 -   Quadratic Scaled earnedgold: After examining the original plot I made between damagetochampions and earned gold, I noticed that there was a slight quadratic curve to the scatter plot. In order to account for this in the new model, I decided to use the square root of all the earnedgold values to help my model fit better, but because the curvature is so slight, the change was not at all impactful.
@@ -161,8 +161,9 @@ Comparing on the same training and test sets as the baseline model the RMSE was:
 
 The final model reduced RMSE by roughly 7-8% in both the training and test data,
 so the final model does a pretty good job improving on the shortcomings of the 
-baseline model, even though it already very hard to improve upon. The reduction
-in error is a clear indicator of the final model's improved predicting powers.
+baseline model, even though it is already very hard to improve upon. The 
+reduction in error is a clear indicator of the final model's improved predicting 
+powers.
 
 <iframe src="assets/predicted_dtc_vs_gold.html" width=800 height=600 frameBorder=0></iframe>
 Figure 2: The relationship between earnedgold and predicted damagetochampions.
@@ -205,23 +206,23 @@ a whole. If the regressor was fair, we would expect that the RMSE for each group
 would be close to the RMSE for the whole model. In this case, the expected RMSE
 was 4409. In order to investigate whether or not this regressor fairly evaluated 
 based on groups, I set up a permutation test:
--   Null Hypothesis: The model is fair and it's RMSE is nearly equal across all positions played. In other words, the groups do not deviate from the expected value.
+-   Null Hypothesis: The model is fair and its RMSE is nearly equal across all positions played. In other words, the groups do not deviate from the expected value.
 -   Alternative Hypothesis: The model is unfair and it has higher RMSEs for some positions and lower RMSEs for other positions. In other words, the groups deviate heavily from the expected value.
 - Test Statistic: Chi-Squared Value or sum((Expectation - Observation) ** 2 / Expectation).
 - Significance Level: Rejection at the 5% or 0.05 significance level.
 
 #### damagetochampions
 <iframe src="assets/permutated_positions.html" width=800 height=600 frameBorder=0></iframe>
-Figure 3: The distribution of permutated chi-squared values.
+Figure 3: The distribution of permuted chi-squared values.
 
 The p-value obtained for this permutation test was 0.00.
 
 ### Conclusion
 At the 5% significance level, we can reject the notion that the observed RMSE 
-of the positions groups is close or equal to the expected RMSE for the groups.
+of the position groups is close or equal to the expected RMSE for the groups.
 This means that we reject the notion that the model fairly models all groups. 
 My final analysis showed that the model did moderately better when evaluating
-sup and jng, and this may be due to the fact that the datapoints are more 
+sup and jng, and this may be due to the fact that the data points are more 
 tightly clustered at a first glance. In other words, they may perform more 
 consistently across games compared to the other 3 roles.
 
