@@ -25,6 +25,7 @@ columns:
 | total cs | The number of creeps (minions) killed by a player by the end of a game. |
 | earnedgold | The amount of gold that a player earned without including the passive income. |
 
+
 In order to tackle this problem, I am building a regression model with the value
 "damagetochampions" as the response variable. I chose "damagetochampions" 
 because I felt that it would yield interest results, as it is not a strong 
@@ -64,6 +65,7 @@ The corresponding RMSE for each combination are as follows:
 | Gold/Position | 4869.005149 |
 | Kills/Position | 5693.740007 |
 | Position | 6831.138548 |
+
 
 ### Baseline Model Selection and Performance
 The model combining all of the features had the smallest RMSE, so it was the 
@@ -125,6 +127,7 @@ I manually iterated through a range of values:
 | max_depth_10 | 4737.271562 |
 | max_depth_12 | 4932.527905 |
 
+
 And after some experimentation, I found that the optimal "max_depth" was 8. I 
 determined this by cross validating each model on the training set and compared
 the average RMSE. Something important to note is that I conducted my 
@@ -144,6 +147,7 @@ compare them. The RMSE performance for each model are as follows:
 | Lasso | 4765.012166 |
 | Forests | 4527.674721 |
 
+
 RandomForestRegressor had the lowest average RMSE compared to the other models,
 so I selected that algorithm as my final model. In order to compare all the 
 models, I also employed cross-validation on the training data as my strategy to 
@@ -160,6 +164,7 @@ Comparing on the same training and test sets as the baseline model the RMSE was:
 |-------------|-------------|-------------|
 | Training | 4798 | 4393 |
 | Test | 4789 | 4495 |
+
 
 The final model reduced RMSE by roughly 7-8% in both the training and test data,
 so the final model does a pretty good job improving on the shortcomings of the 
@@ -199,6 +204,7 @@ probability of getting a spread such as this.
 | mid        | 5369.34 |
 | sup        | 2408.38 |
 | top        | 4520.83 |
+
 
 ### Permutation with Chi-Squared
 Because I was evaluating the fairness of five different groups instead of two, I
